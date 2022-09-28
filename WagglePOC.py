@@ -73,7 +73,8 @@ sns.heatmap(pdf.corr(), annot=True)
 
 pdf.replace([np.inf, -np.inf], np.nan, inplace=True)
 pdf.fillna(999, inplace=True)
-X=pdf[['FISCAL_QTR_NBR','FISCAL_PERIOD_NBR','WM_WK_NBR','REGION_NBR','STORE_NBR','DEPT_NBR','NY_GDP_DEFL_KD_ZG','NY_GDP_MKTP_KD_ZG','NY_ADJ_NNTY_PC_CD','NY_GNP_PCAP_PP_CD','NY_GNP_MKTP_PP_CD','NY_GDS_TOTL_CD','NY_ADJ_ICTR_GN_ZS','NY_GDP_DISC_CN']]
+X=pdf[['FISCAL_QTR_NBR','FISCAL_PERIOD_NBR','WM_WK_NBR','REGION_NBR','STORE_NBR','DEPT_NBR','NY_GDP_DEFL_KD_ZG','NY_GDP_MKTP_KD_ZG','NY_ADJ_NNTY_PC_CD','NY_GNP_PCAP_PP_CD','NY_GNP_MKTP_PP_CD','NY_ADJ_ICTR_GN_ZS']]
+# X=pdf[['FISCAL_QTR_NBR','FISCAL_PERIOD_NBR','WM_WK_NBR','REGION_NBR','STORE_NBR','DEPT_NBR','ACCTG_DEPT_NBR','NY_GDP_DEFL_KD_ZG','NY_GDP_MKTP_KD_ZG','NY_ADJ_NNTY_PC_CD','NY_GNP_PCAP_PP_CD','NY_GNP_MKTP_PP_CD','NY_ADJ_ICTR_GN_ZS']]
 # X=pdf[['FISCAL_QTR_NBR','FISCAL_PERIOD_NBR','REGION_NBR','STORE_NBR','DEPT_NBR','NY_GDP_DEFL_KD_ZG','NY_GDP_MKTP_KD_ZG','NY_ADJ_NNTY_PC_CD','NY_GNP_PCAP_PP_CD','NY_GNP_MKTP_PP_CD','NY_GDS_TOTL_CD','NY_ADJ_ICTR_GN_ZS','NY_GDP_DISC_CN']]
 
 y=pdf['USD_AMT']
@@ -343,14 +344,22 @@ results_df
 
 # COMMAND ----------
 
-results_df.plot(x='Model',figsize=(12,6))
+results_df.plot.bar(x='Model', rot=0,figsize=(16, 6))
+
+# COMMAND ----------
+
+# results_df.plot.box()
 
 # COMMAND ----------
 
 print("**** Models Comparison ****")
 # results_df.set_index('Model', inplace=True)
-results_df['R2 Square'].plot(kind='barh', figsize=(12, 8))
+results_df['R2 Square'].plot(kind='barh', figsize=(16, 6))
 
+#ax = sns.plot(x="R2 Square", hue="Model", data=results_df, size=50, aspect = 8)
+ax = sns.plot(x="R2 Square", hue="Model", data=results_df, size=20, aspect = 10,xlabel='R2 SQR',ylabel='Model', title='R2')
+ax.set_xticklabels(rotation=30)
+plt.show()
 
 # COMMAND ----------
 
@@ -358,6 +367,14 @@ results_df=results_df.drop(index=[5,6])
 results_df 
 # = results_df.set_index("Model")
 
+
+# COMMAND ----------
+
+results_df['R2 Square'].plot(kind='barh', figsize=(16, 6))
+
+# COMMAND ----------
+
+results_df.plot(x='Model',figsize=(12,6))
 
 # COMMAND ----------
 
